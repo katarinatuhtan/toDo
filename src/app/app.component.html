@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="row pt-3">
+    <div class="col-6">
+      <h4>TO DO</h4>
+    </div>
+    <div class="col-6 text-end">
+      <button class="btn btn-ouline-success" (click)="openModel()">Add a task</button>
+    </div>
+  </div>
+  @if (taskList.length !== 0){
+  <div class="row">
+    @for (item of taskList; track $index) {
+    <div class="col-3">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              {{item.name}}
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>{{item.description}}</p>
+          <p>Completed: {{item.completed}}</p>
+        </div>
+        <div class="card-footer text-center">
+          <div class="row">
+            <div class="col-6">
+              <button class="btn btn-sm btn-primary" (click)="onUpdate(item)">Update</button>
+              <button class="btn btn-sm btn-danger" (click)="onDelete(item)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div> </div>
+    }
+  </div>
+    } @else {
+    <div class="row">
+      <div class="col-12 p-1 text-center">
+        <p>No tasks.</p>
+      </div>
+    </div>
+    }
+  </div>
+
+
+  <div class="modal" id="myModal" #myModal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Add new</h4>
+          <button type="button" class="btn-close" (click)="closeModel()"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-6">
+              <label for="">Title</label>
+              <input type="text" [(ngModel)]="taskObj.name" class="form-control" placeholder="Title">
+            </div>
+            <div class="col-7">
+              <label for="">Description</label>
+              <input type="text" [(ngModel)]="taskObj.description" class="form-control" placeholder="Desc">
+            </div>
+            <div class="col-9">
+              <label for="">Completed</label>
+              <input type="checkbox" [(ngModel)]="taskObj.completed" class="form-check-input" placeholder="Completed">
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="closeModel()">Close</button>
+          @if (taskObj.id == 0){
+          <button type="button" class="btn btn-primary" (click)="saveTask()">Save Task</button>
+          } @else{
+          <button type="button" class="btn btn-success" (click)="updateTask()">Update Task</button>
+          }
+        </div>
+
+      </div>
+    </div>
+  </div>
