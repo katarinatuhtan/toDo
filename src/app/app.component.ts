@@ -64,23 +64,32 @@ export class AppComponent implements OnInit {
     this.closeModel();
   }
   saveTask() {
-    debugger;
+    if (!this.taskObj.name) {
+        alert('Please enter the title before saving the task.');
+        return; 
+    }
+
+    if (!this.taskObj.description) {
+        alert('Please enter the description before saving the task.');
+        return; 
+    }
+
     const isLocalPresent = localStorage.getItem("todo");
     if (isLocalPresent != null) {
-      const oldArray = JSON.parse(isLocalPresent);
-      this.taskObj.id = oldArray.length + 1;
-      oldArray.push(this.taskObj);
-      this.taskList = oldArray;
-      localStorage.setItem("todo", JSON.stringify(oldArray));
+        const oldArray = JSON.parse(isLocalPresent);
+        this.taskObj.id = oldArray.length + 1;
+        oldArray.push(this.taskObj);
+        this.taskList = oldArray;
+        localStorage.setItem("todo", JSON.stringify(oldArray));
     } else {
-      const newArr = [];
-      newArr.push(this.taskObj);
-      this.taskObj.id = 1;
-      this.taskList = newArr;
-      localStorage.setItem("todo", JSON.stringify(newArr));
+        const newArr = [];
+        newArr.push(this.taskObj);
+        this.taskObj.id = 1;
+        this.taskList = newArr;
+        localStorage.setItem("todo", JSON.stringify(newArr));
     }
     this.closeModel();
-  }
+}
 }
 
 export class Task {
